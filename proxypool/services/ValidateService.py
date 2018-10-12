@@ -2,6 +2,7 @@
 from proxypool.db.db import dbCursor
 from proxypool.util import test_alive
 from proxypool.util import logger_s
+import time
 
 class ValidateService(object):
 
@@ -34,6 +35,5 @@ class ValidateService(object):
                             dbCursor.update([sql])
                         # else:
                         #     logger_s.info('[hit]')
-
-
+            time.sleep(60 * 5)
 
