@@ -2,6 +2,7 @@
 from scrapy import cmdline
 from proxypool.services.ValidateService import ValidateService
 import threading
+import time
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 import os
@@ -22,8 +23,7 @@ class ValidateThread(threading.Thread):
 
 
 validateThread = ValidateThread(1, 'validateThread')
-# validateThread.start()
-
+validateThread.start()
 
 
 def start_crawl():
@@ -33,6 +33,11 @@ def start_crawl():
         process.crawl(spider_name)
     process.start()
 start_crawl()
+
+while True:
+    time.sleep(60 * 10)
+    start_crawl()
+
 
 # name = 'xicidaili'
 # name = 'kuaidaili'
