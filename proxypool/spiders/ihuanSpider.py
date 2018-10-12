@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import scrapy
 from bs4 import BeautifulSoup
 from proxypool.items import ProxyItem

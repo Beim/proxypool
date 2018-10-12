@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from proxypool.db.db import dbCursor
 from proxypool.util import test_alive
 from proxypool.util import logger_s

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pymysql
 
 # db = pymysql.connect('119.29.160.85', 'root', '112223334', 'modemo')

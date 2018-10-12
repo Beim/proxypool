@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from scrapy import cmdline
 from proxypool.services.ValidateService import ValidateService
 import threading
