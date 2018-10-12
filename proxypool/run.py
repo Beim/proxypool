@@ -23,7 +23,7 @@ class ValidateThread(threading.Thread):
 
 
 validateThread = ValidateThread(1, 'validateThread')
-validateThread.start()
+# validateThread.start()
 
 
 def start_crawl():
