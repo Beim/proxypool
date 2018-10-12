@@ -19,21 +19,21 @@ class ValidateService(object):
                         miss = miss + 1
                         if miss > self.miss_max:
                             sql = 'delete from proxy where host="%s" and port="%s"' % (proxy_info[0], proxy_info[1])
-                            logger.info('[miss] %s' % sql)
+                            logger_s.info('[miss] %s' % sql)
                             dbCursor.delete([sql])
                         else:
                             sql = 'update proxy set miss=%s where host="%s" and port="%s"' % (miss, proxy_info[0], proxy_info[1])
-                            logger.info('[miss] %s' % sql)
+                            logger_s.info('[miss] %s' % sql)
                             dbCursor.update([sql])
                     # hit
                     else:
                         if miss > 0:
                             miss = miss - 1
                             sql = 'update proxy set miss=%s where host="%s" and port="%s"' % (miss, proxy_info[0], proxy_info[1])
-                            # logger.info('[hit] %s' % sql)
+                            # logger_s.info('[hit] %s' % sql)
                             dbCursor.update([sql])
                         # else:
-                        #     logger.info('[hit]')
+                        #     logger_s.info('[hit]')
 
 
 
