@@ -29,11 +29,12 @@ class ValidateService(object):
                     # hit
                     else:
                         if miss > 0:
-                            miss = miss - 1
-                            sql = 'update proxy set miss=%s where host="%s" and port="%s"' % (miss, proxy_info[0], proxy_info[1])
-                            # logger_s.info('[hit] %s' % sql)
+                            sql = 'update proxy set miss=miss-1,hit=hit+1 where host="%s" and port="%s"' % (proxy_info[0], proxy_info[1])
+                            logger_v.info('[hit] %s' % sql)
                             dbCursor.update([sql])
-                        # else:
-                        #     logger_s.info('[hit]')
+                        else:
+                            sql = 'update proxy set hit=hit+1 where host="%s" and port="%s"' % (proxy_info[0], proxy_info[1])
+                            logger_v.info('[hit] %s' % sql)
+                            dbCursor.update([sql])
             time.sleep(60 * 5)
 
