@@ -21,15 +21,18 @@ def get_logger(name):
 
 def test_alive(host, port, type):
     proxies = {}
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36',
+    }
     if type == 'HTTP' or type == 'http':
         proxies['http'] = '%s:%s' % (host, port)
     else:
         proxies['https'] = '%s:%s' % (host, port)
     try:
-        res1 = requests.get('%s://www.baidu.com' % type, proxies=proxies, timeout=3)
+        res1 = requests.get('%s://www.baidu.com' % type, proxies=proxies, timeout=3, headers=headers)
         if not res1.status_code == 200: return False
 
-        res2 = requests.get('http://ip.taobao.com//service/getIpInfo.php?ip=%s' % host, proxies=proxies, timeout=3)
+        res2 = requests.get('http://ip.taobao.com//service/getIpInfo.php?ip=%s' % host, proxies=proxies, timeout=3, headers=headers)
         if not res2.status_code == 200: return False
         data = json.loads(res2.content)
         if data['code'] != 0 or data['data']['ip'] != host: return False
