@@ -32,7 +32,6 @@ def test_alive(host, port, type):
         res2 = requests.get('http://ip.taobao.com//service/getIpInfo.php?ip=%s' % host, proxies=proxies, timeout=3)
         if not res2.status_code == 200: return False
         data = json.loads(res2.content)
-        print(data)
         if data['code'] != 0 or data['data']['ip'] != host: return False
         return True
 
