@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from proxypool.db.db import dbCursor
 from proxypool.util import test_alive
-from proxypool.util import logger_s
+from proxypool.util import logger_v
 import time
 
 class ValidateService(object):
@@ -20,11 +20,11 @@ class ValidateService(object):
                         miss = miss + 1
                         if miss > self.miss_max:
                             sql = 'delete from proxy where host="%s" and port="%s"' % (proxy_info[0], proxy_info[1])
-                            logger_s.info('[miss] %s' % sql)
+                            logger_v.info('[miss] %s' % sql)
                             dbCursor.delete([sql])
                         else:
                             sql = 'update proxy set miss=%s where host="%s" and port="%s"' % (miss, proxy_info[0], proxy_info[1])
-                            logger_s.info('[miss] %s' % sql)
+                            logger_v.info('[miss] %s' % sql)
                             dbCursor.update([sql])
                     # hit
                     else:

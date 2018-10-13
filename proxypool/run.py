@@ -6,24 +6,11 @@ import time
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 import os
-# 必须先加载项目settings配置
+from multiprocessing import Process
+from proxypool.util import logger_s
+
 # project需要改为你的工程名字（即settings.py所在的目录名字）
 os.environ.setdefault('SCRAPY_SETTINGS_MODULE', 'proxypool.settings')
-
-class ValidateThread(threading.Thread):
-
-    def __init__(self, threadID, name):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-        self.validateService = ValidateService()
-
-    def run(self):
-        self.validateService.start()
-
-
-validateThread = ValidateThread(1, 'validateThread')
-# validateThread.start()
 
 
 def start_crawl():
@@ -32,11 +19,17 @@ def start_crawl():
     for spider_name in spider_list:
         process.crawl(spider_name)
     process.start()
-start_crawl()
+# start_crawl()
 
-while True:
-    time.sleep(60 * 10)
-    start_crawl()
+if __name__ == '__main__':
+    while True:
+        p = Process(target=start_crawl)
+        p.start()
+        p.join()
+        logger_s.info('sleep interval 60 * 10')
+        time.sleep(60 * 10)
+
+
 
 
 # name = 'xicidaili'

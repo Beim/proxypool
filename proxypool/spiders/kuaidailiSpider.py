@@ -22,7 +22,7 @@ class KuaidailiSpider(scrapy.Spider):
                 yield scrapy.Request(url, headers=self.headers)
 
     def parse(self, response):
-        soup = BeautifulSoup(response.body)
+        soup = BeautifulSoup(response.body, 'lxml')
         # from scrapy.shell import inspect_response
         # inspect_response(response, self)
 
