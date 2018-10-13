@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 import logging
+import json
 
 # logging.basicConfig(filename='%s/logs/logger.log' % os.getcwd(), level=logging.INFO)
 
@@ -27,10 +28,23 @@ def test_alive(host, port, type):
     try:
         res1 = requests.get('%s://www.baidu.com' % type, proxies=proxies, timeout=3)
         if not res1.status_code == 200: return False
-        res2 = requests.get('%s://www.baidu.com' % type, proxies=proxies, timeout=3)
-        return res2.status_code == 200
+
+        res2 = requests.get('http://ip.taobao.com//service/getIpInfo.php?ip=%s' % host, proxies=proxies, timeout=3)
+        if not res2.status_code == 200: return False
+        data = json.loads(res2.content)
+        print(data)
+        if data['code'] != 0 or data['data']['ip'] != host: return False
+        return True
+
     except:
         return False
 
 logger_v = get_logger('validateService')
 logger_s = get_logger('spider')
+
+if __name__ == '__main__':
+    res = test_alive('39.135.11.92', '8080', 'HTTP')
+
+    print(res)
+
+
